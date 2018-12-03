@@ -1,7 +1,7 @@
-﻿using FirstNetCoreMvcProject.Models;
+﻿using NetCoreMvcProject.Models;
 using System.Collections.Generic;
 
-namespace FirstNetCoreMvcProject.Repositories
+namespace NetCoreMvcProject.Repositories
 {
     public interface IProductRepository
     {

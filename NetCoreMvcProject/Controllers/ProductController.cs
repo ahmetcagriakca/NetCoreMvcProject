@@ -1,5 +1,5 @@
-﻿using FirstNetCoreMvcProject.Models;
-using FirstNetCoreMvcProject.Repositories;
+﻿using NetCoreMvcProject.Models;
+using NetCoreMvcProject.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FirstNetCoreMvcProject.Controllers
+namespace NetCoreMvcProject.Controllers
 {
-
+    [Route("Product")]
     public class ProductController : Controller
     {
         private readonly IHostingEnvironment environment;
@@ -28,9 +28,12 @@ namespace FirstNetCoreMvcProject.Controllers
             this.environment = environment;
             this.productRepository = productRepository;
         }
+
+        [Route("List")]
         public IActionResult Index()
         {
-            return View();
+            var list = productRepository.GetAll();
+            return View(list);
         }
 
         public IActionResult Create()
@@ -61,30 +64,6 @@ namespace FirstNetCoreMvcProject.Controllers
             // Don't rely on or trust the FileName property without validation.
             //return Ok(new { count = files.Count, size, filePath });
             return View(RedirectToAction("Create"));
-        }
-
-        public async Task<IActionResult> Post(List<IFormFile> files)
-        {
-            long size = files.Sum(f => f.Length);
-
-            // full path to file in temp location
-            var filePath = Path.GetTempFileName();
-
-            foreach (var formFile in files)
-            {
-                if (formFile.Length > 0)
-                {
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await formFile.CopyToAsync(stream);
-                    }
-                }
-            }
-
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-
-            return Ok(new { count = files.Count, size, filePath });
         }
     }
 }

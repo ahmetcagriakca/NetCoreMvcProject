@@ -1,19 +1,25 @@
-﻿using FirstNetCoreMvcProject.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using NetCoreMvcProject.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FirstNetCoreMvcProject.Repositories
+namespace NetCoreMvcProject.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private static readonly ISet<Product> _products = new HashSet<Product>()
-
+        public DbSet<Product> _products
         {
-            new Product() { Id = 1 ,Name = "test", Image = "Image"},
-            new Product() { Id = 2 ,Name = "tes", Image = "Image"},
-            new Product() { Id = 3 ,Name = "tez", Image = "Image"},
-        };
+            get
+            {
+                return dbContext.Set<Product>();
+            }
+        }
+        private readonly ProductDbContext dbContext;
 
+        public ProductRepository(ProductDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
         public Product Get(string name) => _products.First(en => en.Name == name);
 
         public IEnumerable<Product> GetAll() => _products;

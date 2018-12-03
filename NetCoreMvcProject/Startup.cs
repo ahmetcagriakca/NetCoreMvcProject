@@ -1,11 +1,13 @@
-﻿using FirstNetCoreMvcProject.Repositories;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetCoreMvcProject.Models;
+using NetCoreMvcProject.Repositories;
 
-namespace FirstNetCoreMvcProject
+namespace NetCoreMvcProject
 {
     public class Startup
     {
@@ -25,8 +27,11 @@ namespace FirstNetCoreMvcProject
             //    options.CheckConsentNeeded = context => true;
             //    options.MinimumSameSitePolicy = SameSiteMode.None;
             //});
+
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<ProductDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,8 +51,8 @@ namespace FirstNetCoreMvcProject
 
             app.UseMvc(routes =>
             {
-             //   routes.MapRoute("urun", "urun/{action}",
-             //defaults: new { controller = "Product" });
+                //   routes.MapRoute("urun", "urun/{action}",
+                //defaults: new { controller = "Product" });
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
