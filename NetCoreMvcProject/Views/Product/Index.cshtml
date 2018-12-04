@@ -53,12 +53,10 @@
           @Html.DisplayFor(modelItem => item.Brand.Name)
         </td>
         <td>
-          <img src="~/Images/@item.Image" alt="Sample Image" width="300" />
+          <img src="~/Images/products/@item.Image" alt="Sample Image" width="300" />
         </td>
         <td>
-          @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-          @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-          @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+          @Html.ActionLink("Delete", "Delete", new { id=item.Id})
         </td>
       </tr>
     }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NetCoreMvcProject.Models;
 
 namespace NetCoreMvcProject.Models
 {
@@ -29,5 +30,7 @@ namespace NetCoreMvcProject.Models
             });
 
         }
+
+        public DbSet<NetCoreMvcProject.Models.Product> Product { get; set; }
     }
 }

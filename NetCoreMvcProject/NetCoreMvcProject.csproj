@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <Folder Include="Repositories\" />
+    <Folder Include="wwwroot\images\products\" />
+    <Folder Include="wwwroot\NewFolder\" />
     <Folder Include="wwwroot\TempImages\" />
   </ItemGroup>
 

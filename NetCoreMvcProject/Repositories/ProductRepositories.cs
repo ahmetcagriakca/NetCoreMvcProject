@@ -27,8 +27,6 @@ namespace NetCoreMvcProject.Repositories
 
         public void Create(Product product)
         {
-            var maxId=_products.Max(en => en.Id);
-            product.Id = maxId + 1;
             _products.Add(product);
         }
         public void Delete(int id)
